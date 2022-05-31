@@ -1,6 +1,6 @@
 pipeline {
 	agent {
-		('built-in')
+		(label 'built-in')
 	      }
 	stages {
 		stage("Parallel Execution") {
