@@ -1,19 +1,17 @@
 pipeline {
-	agent {
-		label ('dftHome')
-	      }
+	agent any
 	stages {
 		stage("Parallel Execution") {
 			steps {
 				parallel(
 				      a: {
-					sh "mvn clean"
+					bat "mvn clean"
 				      },
 				      b: {
-					sh "mvn test"
+					bat "mvn test"
 				      },
 				      c: {
-					sh "mvn package"
+					bat "mvn package"
 				      }
 				)
 			}
@@ -27,6 +25,7 @@ pipeline {
 		}
 		stage("Email Build Status"){
 			steps {
+		
 				mail body: "${env.JOB_NAME}  - Build # ${env.BUILD_NUMBER}  - ${currentBuild.currentResult} \n\nCheck console output at ${env.BUILD_URL} to view the results.", subject: "${env.JOB_NAME}  - Build # ${env.BUILD_NUMBER}  - ${currentBuild.currentResult}!!", to: 'nleyonc@gmail.com'
 			}
 		}
